@@ -1,0 +1,18 @@
+server.port: 8081
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        enable.idempotence: true
+        max.in.flight.request.per.connection: 5
+
+myapp.topic:
+  temperature: indicator-temperature
+  humidity: indicator-humidity
+  pressure: indicator-pressure

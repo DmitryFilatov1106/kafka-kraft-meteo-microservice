@@ -1,0 +1,20 @@
+version: '3.8'
+
+# docker network create kafka_net --driver bridge
+networks:
+  net:
+    name: kafka_net
+    external: true
+
+services:
+  generator:
+    build:
+      context: .
+    image: generator-app-kafka:1.0
+    container_name: generator-app
+    networks:
+      - net
+    env_file:
+      - .env
+    ports:
+      - '8081:8081'

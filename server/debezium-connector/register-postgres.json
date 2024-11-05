@@ -1,0 +1,22 @@
+{
+  "name": "pg-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "plugin.name": "pgoutput",
+    "tasks.max": "1",
+    "topic.prefix": "pg-replica",
+    "database.hostname": "dbase",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "post",
+    "database.dbname": "meteo_kafka",
+    "database.server.id": "184054",
+    "table.include.list": "public.indicator",
+    "schema.history.internal.kafka.bootstrap.servers": "broker-1:9090,broker-2:9090",
+    "transforms": "unwrap,route",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+    "transforms.route.replacement": "$3"
+  }
+}
